@@ -1,5 +1,5 @@
 #!/bin/bash
-WORK_PATH='/home/projects/docker-front'
+WORK_PATH='/home/projects/docker-back'
 cd $WORK_PATH
 
 echo "先清除老代码"
@@ -17,4 +17,4 @@ docker stop docker-back-container
 docker rm docker-back-container
 
 echo "启动新容器"
-docker container run -p 3000:3000 --name docker-back-container -d docker-back
+docker container run -p 3000:3000 --name docker-back-container -d docker-back:1.0
