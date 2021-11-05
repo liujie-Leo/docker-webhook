@@ -17,4 +17,4 @@ docker stop docker-back-container
 docker rm docker-back-container
 
 echo "启动新容器"
-docker container run -p 3000:3000 --name docker-back-container -d docker-back:1.0
+docker container run -p 2000:2000 --name docker-back-container -d docker-back:1.0
