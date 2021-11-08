@@ -17,7 +17,7 @@ let server = http.createServer((req, res) => {
     })
     req.on('end', () => {
       let body = Buffer.concat(buffers)
-      let event = req.headers['x-gitHub-event']
+      let event = req.headers['x-github-event']
       // github请求来的时候，要传递请求体body，另外还会传一个signature过来
       // 需要验证签名对不对
       let signature = req.headers['x-hub-signature']
@@ -29,6 +29,7 @@ let server = http.createServer((req, res) => {
 
       // 开始部署
       if (event == "push") {
+        console.log('@@@@@')
         let payload = JSON.parse(body)
         let child = spawn('sh', [`./${payload.repository.name}.sh`]);
         let buffers = [];
