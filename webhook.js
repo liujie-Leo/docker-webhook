@@ -31,6 +31,7 @@ let server = http.createServer((req, res) => {
       if (event == "push") {
         console.log('@@@@@')
         let payload = JSON.parse(body)
+        console.log(payload.repository.name);
         let child = spawn('sh', [`./${payload.repository.name}.sh`]);
         let buffers = [];
         child.stdout.on('data', buffer => {
