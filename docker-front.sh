@@ -12,7 +12,7 @@ git pull origin master
 echo "打包"
 npm run build
 
-echo "开始执行构建"
+echo "开始执行构建镜像"
 docker build -t docker-front:1.0 .
 
 echo "停止并删除旧容器"

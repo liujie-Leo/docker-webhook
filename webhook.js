@@ -1,5 +1,6 @@
 let http = require('http');
-let crypto = require('crypto')
+let crypto = require('crypto');
+const { spawn } = require('child_process');
 
 let SECRET = '123456'
 function sign(body) {
@@ -23,10 +24,24 @@ let server = http.createServer((req, res) => {
       if (signature != sign(body)) {
         res.end("Now Allowed");
       }
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify({ ok: true }));
+
+      // 开始部署
+      if (event == "push") {
+        let payload = JSON.parse(body)
+        let child = spawn('sh', [`./${payload.repository.name}.sh`]);
+        let buffers = [];
+        child.stdout.on('data', buffer => {
+          buffers.push(buffer)
+        })
+        child.stdout.on('end', buffer => {
+          let log = Buffer.concat(buffers);
+          console.log(log)
+        })
+      }
     })
 
-    res.setHeader('Content-Type', 'application/json')
-    res.end(JSON.stringify({ok:true}))
   } else {
     res.end('Not Found')
   }
