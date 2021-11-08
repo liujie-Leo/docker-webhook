@@ -13,7 +13,7 @@ let server = http.createServer((req, res) => {
 
     let buffers = []
     req.on('data', buffer => {
-      buffer.push(buffer)
+      buffers.push(buffer)
     })
     req.on('end', () => {
       let body = Buffer.concat(buffers)
